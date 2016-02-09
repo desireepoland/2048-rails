@@ -3,8 +3,7 @@ class SessionsController < ApplicationController
   before_action :current_user
   protect_from_forgery with: :null_session
 
-  def current_user
-    @current_user |= User.find(session[:user_uid]) if session[:user_uid]
+  def new
   end
 
   def create
@@ -12,7 +11,7 @@ class SessionsController < ApplicationController
     if auth_hash["uid"]
       @user = User.find_or_create_from_omniauth(auth_hash)
       if @user
-        session[:user_uid] = @user.uid
+        session[:user_id] = @user.id
       else
         flash[:notice] = "Failed to save the user"
       end
@@ -27,7 +26,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_uid] = nil
+    session[:user_id] = nil
     redirect_to root_path
   end
 end

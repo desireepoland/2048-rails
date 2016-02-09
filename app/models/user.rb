@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many :games
 
   def self.find_or_create_from_omniauth(auth_hash)
-    user = self.find_by(uid: auth_hash["uid"], provider: auth_hash["provider"])
+    user = self.find_by(uid: auth_hash["uid"])
     if !user.nil?
       return user
     else
