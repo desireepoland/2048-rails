@@ -16,6 +16,15 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+ .score-container {
+   height: 300px;
+ }
+
+
 body {
    margin: 0px !important;
+ }
+
+ .navbar-brand {
+   float: right;
  }
