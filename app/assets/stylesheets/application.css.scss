@@ -13,4 +13,5 @@
  *= require_tree .
  *= require_self
  */
-.navvy
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
