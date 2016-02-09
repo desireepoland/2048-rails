@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
       return user
     else
       user = User.new
-      user.uid        = auth_hash["uid"]
-      user.name       = auth_hash["info"]["name"]
+      user.uid = auth_hash["uid"]
+      user.name = auth_hash["info"]["name"]
       if user.save
         user
       else
