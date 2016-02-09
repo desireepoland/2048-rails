@@ -30,7 +30,9 @@
           </ul>
         </li>
       </ul>
-
+      <% if @user %>
+        Welcome, <%= user.username.titlecase  %>
+      <% end %>
       <a class="navbar-brand" href="localhost:3000/logout">Logout</a>
       <!-- <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
