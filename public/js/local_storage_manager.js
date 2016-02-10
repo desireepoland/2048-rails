@@ -50,7 +50,15 @@ LocalStorageManager.prototype.setBestScore = function (score) {
 
 // Game state getters/setters and clearing
 LocalStorageManager.prototype.getGameState = function () {
-  var stateJSON = this.storage.getItem(this.gameStateKey);
+  var stateJSON; //= this.storage.getItem(this.gameStateKey);
+  $.ajax("/games/:id", {async: false, type: "GET"})
+    .done(function(data){
+      console.log("GET DONE!");
+      stateJSON = data.game_state;
+    })
+    .fail(function(){
+      console.log("GET FAIL");
+    });
   return stateJSON ? JSON.parse(stateJSON) : null;
 };
 
@@ -60,10 +68,10 @@ LocalStorageManager.prototype.setGameState = function (gameState) {
 //post will send it to create a game
   $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
     .done(function(data) {
-      console.log("DONE!");
+      console.log("POST DONE!");
     })
     .fail(function(){
-      console.log("FAIL");
+      console.log("POST FAIL");
     });
 };
 

@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def show
-    @game = Game.find(params[:id])
+    @game = @current_user.games.first
     render json: @game
   end
 
