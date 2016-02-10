@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
       user = User.new
       user.uid = auth_hash["uid"]
       user.name = auth_hash["info"]["name"]
+      user.provider   = auth_hash["provider"]
+      user.image_url = auth_hash["info"]["image"]
+      if !user.image_url.present?
+        user.image_url = "blank.png"
+      end
       if user.save
         user
       else
