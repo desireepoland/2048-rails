@@ -48,6 +48,11 @@ LocalStorageManager.prototype.setBestScore = function (score) {
   this.storage.setItem(this.bestScoreKey, score);
 };
 
+LocalStorageManager.prototype.rankBestScores = function (score) {
+
+
+};
+
 // Game state getters/setters and clearing
 LocalStorageManager.prototype.getGameState = function () {
   var stateJSON; //= this.storage.getItem(this.gameStateKey);

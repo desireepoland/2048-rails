@@ -9,3 +9,6 @@ show
 destroy
 index
 edit
+
+
+save current game with button press or with cookies?
