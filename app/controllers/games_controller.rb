@@ -16,10 +16,11 @@ class GamesController < ApplicationController
     end
   end
 
+# TODO: change update so it works with game state updating
   def update
         @game = Game.find(params[:id])
-        if @game.update_attributes(something: params[:another][:onemore])
-          render 'show', formats: [:json], handlers: [:jbuilder], status: 200
+        if @game.update_attributes(something: params[:another][:onemore]) # change this
+          render 'show', formats: [:json], handlers: [:jbuilder], status: 200 #make sim to above
         else
           render json: {error: "Game could not be updated."}, status: 422
         end
