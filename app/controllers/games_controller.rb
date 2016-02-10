@@ -2,8 +2,7 @@ class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @games = @current_user.games.all
-    render json: @games
+    @games = @current_user.games
   end
 
   def show
