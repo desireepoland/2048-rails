@@ -33,29 +33,58 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
-  var previousState = this.storageManager.getGameState();
+  var self = this;
+  var previousState = self.storageManager.getGameState()
+  .done(function(previousState){
+    console.log("GET DONE!");
+    console.log(previousState);
+    // stateJSON = data.game_state;
+    if (previousState) {
+      self.grid        = new Grid(previousState.grid.size,
+                                  previousState.grid.cells); // Reload grid
+      self.score       = previousState.score;
+      self.over        = previousState.over;
+      self.won         = previousState.won;
+      self.keepPlaying = previousState.keepPlaying;
+    } else {
+      self.grid        = new Grid(self.size);
+      self.score       = 0;
+      self.over        = false;
+      self.won         = false;
+      self.keepPlaying = false;
+
+      // Add the initial tiles
+      self.addStartTiles();
+    }
+
+    // Update the actuator
+    self.actuate();
+  })
+  // .fail(function(){
+  //   console.log("GET FAIL");)
+  // ;
 
   // Reload the game from a previous game if present
-  if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
-                                previousState.grid.cells); // Reload grid
-    this.score       = previousState.score;
-    this.over        = previousState.over;
-    this.won         = previousState.won;
-    this.keepPlaying = previousState.keepPlaying;
-  } else {
-    this.grid        = new Grid(this.size);
-    this.score       = 0;
-    this.over        = false;
-    this.won         = false;
-    this.keepPlaying = false;
-
-    // Add the initial tiles
-    this.addStartTiles();
-  }
-
-  // Update the actuator
-  this.actuate();
+  // if (previousState) {
+  //   this.grid        = new Grid(previousState.grid.size,
+  //                               previousState.grid.cells); // Reload grid
+  //   this.score       = previousState.score;
+  //   this.over        = previousState.over;
+  //   this.won         = previousState.won;
+  //   this.keepPlaying = previousState.keepPlaying;
+  // } else {
+  //   this.grid        = new Grid(this.size);
+  //   this.score       = 0;
+  //   this.over        = false;
+  //   this.won         = false;
+  //   this.keepPlaying = false;
+  //
+  //   // Add the initial tiles
+  //   this.addStartTiles();
+  // }
+  //
+  // // Update the actuator
+  // this.actuate();
 };
 
 // Set up the initial tiles to start the game with

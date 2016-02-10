@@ -7,7 +7,7 @@ class GamesController < ApplicationController
 
   def show
     @game = @current_user.games.first
-    render json: @game
+    render json: @game.game_state
   end
 
   def create

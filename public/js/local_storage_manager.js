@@ -50,17 +50,19 @@ LocalStorageManager.prototype.setBestScore = function (score) {
 
 // Game state getters/setters and clearing
 LocalStorageManager.prototype.getGameState = function () {
-  var stateJSON; //= this.storage.getItem(this.gameStateKey);
-  $.ajax("/games/:id", {async: false, type: "GET"})
-    .done(function(data){
-      console.log("GET DONE!");
-      stateJSON = data.game_state;
-    })
-    .fail(function(){
-      console.log("GET FAIL");
+  // var stateJSON; //= this.storage.getItem(this.gameStateKey);
+  return $.ajax("/games/:id", {async: false, type: "GET"});
+
       // create here?
-    });
-  return stateJSON ? JSON.parse(stateJSON) : null;
+      // $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
+      //   .done(function(data) {
+      //     console.log("POST DONE!");
+      //   })
+      //   .fail(function(){
+      //     console.log("POST FAIL");
+      //   });
+
+  // return stateJSON ? JSON.parse(stateJSON) : null;
 };
 
 LocalStorageManager.prototype.setGameState = function (gameState) {
@@ -74,7 +76,19 @@ LocalStorageManager.prototype.setGameState = function (gameState) {
     .fail(function(){
       console.log("POST FAIL");
     });
+  // $.ajax("/games/:id", {
+  //   type: "PATCH",
+  //   game: {game_state: JSON.stringify(gameState)}
+  // })
+  //   .done(function(data){
+  //     console.log("PATCH DONE!");
+  //     stateJSON = data.game_state;
+  //   })
+  //   .fail(function(){
+  //     console.log("PATCH FAIL");
+  //   });
 };
+
 
 LocalStorageManager.prototype.clearGameState = function () {
   this.storage.removeItem(this.gameStateKey);
