@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :games
+  has_many :games, order: "created_at DESC"
 
   def self.find_or_create_from_omniauth(auth_hash)
     user = self.find_by(uid: auth_hash["uid"])
