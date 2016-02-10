@@ -56,6 +56,15 @@ LocalStorageManager.prototype.getGameState = function () {
 
 LocalStorageManager.prototype.setGameState = function (gameState) {
   this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
+
+//post will send it to create a game
+  $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
+    .done(function(data) {
+      console.log("DONE!");
+    })
+    .fail(function(){
+      console.log("FAIL");
+    });
 };
 
 LocalStorageManager.prototype.clearGameState = function () {
