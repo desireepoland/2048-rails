@@ -39,6 +39,14 @@ LocalStorageManager.prototype.localStorageSupported = function () {
   }
 };
 
+LocalStorageManager.prototype.saveID = function (id) {
+  return this.storage.setItem("game_id", id);
+};
+
+LocalStorageManager.prototype.getID = function () {
+  return this.storage.getItem("game_id") || 0;
+};
+
 // Best score getters/setters
 LocalStorageManager.prototype.getBestScore = function () {
   return this.storage.getItem(this.bestScoreKey) || 0;
@@ -73,25 +81,26 @@ LocalStorageManager.prototype.getGameState = function () {
 LocalStorageManager.prototype.setGameState = function (gameState) {
   this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
 
-//TODO: post will send it to create a game currently..change this to update action later
-  $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
-    .done(function(data) {
-      console.log("POST DONE!");
-    })
-    .fail(function(){
-      console.log("POST FAIL");
-    });
-  // $.ajax("/games/:id", {
-  //   type: "PATCH",
-  //   game: {game_state: JSON.stringify(gameState)}
-  // })
-  //   .done(function(data){
-  //     console.log("PATCH DONE!");
-  //     stateJSON = data.game_state;
+  // $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
+  //   .done(function(data) {
+  //     console.log("POST DONE!");
   //   })
   //   .fail(function(){
-  //     console.log("PATCH FAIL");
+  //     console.log("POST FAIL");
   //   });
+
+
+  $.ajax("/games/" + this.getID(), {
+    type: "PATCH",
+    game: {game_state: JSON.stringify(gameState)}
+  })
+    .done(function(data){
+      console.log("PATCH DONE!");
+      stateJSON = data.game_state;
+    })
+    .fail(function(){
+      console.log("PATCH FAIL");
+    });
 };
 
 
