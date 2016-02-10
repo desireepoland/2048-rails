@@ -1,14 +1,7 @@
-CRUD for games
-Are games saved in our database?
+Leaderboard
 
-create game model
-create games controller
-new
-create
-show
-destroy
-index
-edit
+steps
 
+query database and have it return the username and best score for all of the users of the application
 
-save current game with button press or with cookies?
+make a view to display all of the results
