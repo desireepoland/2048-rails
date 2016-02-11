@@ -15,11 +15,14 @@ class GamesController < ApplicationController
   end
 
   def new
-    @game = @current_user.games.new(game_params)
+      # binding.pry
+    @game = @current_user.games.new(game_params, score: game_params["game_state"]["score"])
   end
 
   def create
-    @game = @current_user.games.new(game_params)
+    binding.pry
+    @game = @current_user.games.new(game_params, score: JSON.parse(game_params["game_state"])["score"])
+
     if @game.save
       # pass an array of acceptable formats - [:json]
       render json: @game, status: 201
@@ -51,6 +54,6 @@ class GamesController < ApplicationController
     private
 
     def game_params
-      params.permit(:id, :game_state, :score)
+      params.permit(:id, :game_state)
     end
 end
