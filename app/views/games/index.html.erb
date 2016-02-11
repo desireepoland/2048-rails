@@ -3,6 +3,7 @@
   <table class="table table-striped">
     <tbody>
       <tr>
+        <th>First Played</th>
         <th>Last Played</th>
         <th>Score</th>
         <th>Resume</th>
@@ -10,7 +11,8 @@
       </tr>
       <% @games.each do |game| %>
       <tr>
-        <td><%= game.updated_at %></td>
+        <td><%= game.created_at.localtime %></td>
+        <td><%= game.updated_at.localtime %></td>
         <td><%= game.score %></td>
         <td>▷</td>
         <td>✕</td>
