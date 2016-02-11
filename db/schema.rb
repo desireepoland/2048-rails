@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210214004) do
+ActiveRecord::Schema.define(version: 20160211201147) do
 
   create_table "games", force: :cascade do |t|
     t.text     "game_state"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160210214004) do
     t.string   "uid"
     t.string   "provider"
     t.string   "image_url"
+    t.integer  "best_score"
   end
 
 end
