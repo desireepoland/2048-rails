@@ -6,9 +6,22 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = @current_user.games.first
-    # @game = @current_user.games.find_by(id: params[:id])
+    if params[:id]
+      @game = @current_user.games.find_by(id: params[:id])
+    else
+      @game = @current_user.games.first
+    end
     render json: @game
+  end
+
+  def new
+    @game = @current_user.games.new(game_params)
+    # if @game.save
+    #   # pass an array of acceptable formats - [:json]
+    #   render json: @game, status: 200
+    # else
+    #   render json: {error: "Game could not be created."}, status: 422
+    # end
   end
 
   def create
@@ -21,22 +34,15 @@ class GamesController < ApplicationController
     end
   end
 
-# TODO: change update so it works with game state updating
+
   def update
-        @game = Game.find(game_params[:id])
-
-        # if @game.update_attributes(something: params[:another][:onemore]) # change this
-        #   render 'show', formats: [:json], handlers: [:jbuilder], status: 200 #make sim to above
-        # else
-        #   render json: {error: "Game could not be updated."}, status: 422
-        # end
-        if @game.save
-          # pass an array of acceptable formats - [:json]
-          render json: @game, status: 200
-        else
-          render json: {error: "Game could not be updated."}, status: 422
-        end
-
+    @game = Game.find(game_params[:id])
+    if @game.save
+      # pass an array of acceptable formats - [:json]
+      render json: @game, status: 200
+    else
+      render json: {error: "Game could not be updated."}, status: 422
+    end
   end
 
   def destroy
@@ -51,6 +57,6 @@ class GamesController < ApplicationController
     private
 
     def game_params
-      params.permit(:id, :game_state)
+      params.permit(:id, :game_state, :score)
     end
 end

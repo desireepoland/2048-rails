@@ -8,24 +8,24 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
-  this.inputManager.on("save", this.save.bind(this));
+  // this.inputManager.on("save", this.save.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
 }
 
-// Save the game
-GameManager.prototype.save = function (gameState) {
-  console.log(JSON.stringify(gameState));
-  $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
-    .done(function(data) {
-      console.log("POST /save success!");
-    })
-    .fail(function(){
-      console.log("POST FAIL");
-    });
- ///post stuff here
-};
+// // Save the game
+// GameManager.prototype.save = function (gameState) {
+//   console.log(JSON.stringify(gameState));
+//   $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
+//     .done(function(data) {
+//       console.log("POST /save success!");
+//     })
+//     .fail(function(){
+//       console.log("POST FAIL");
+//     });
+//  ///post stuff here
+// };
 
 // Restart the game
 GameManager.prototype.restart = function () {
@@ -51,11 +51,11 @@ GameManager.prototype.setup = function () {
   var previousState = self.storageManager.getGameState()
   .done(function(previousState){
     console.log("GET DONE!");
-    console.log(JSON.parse(previousState.game_state).grid);
-    var current_game = JSON.parse(previousState.game_state);
-    self.storageManager.saveID(previousState.id);
     // stateJSON = data.game_state;
     if (previousState) {
+      console.log(previousState)
+      self.storageManager.saveID(previousState.id);
+      var current_game = JSON.parse(previousState.game_state);
       self.grid        = new Grid(current_game.grid.size,
                                   current_game.grid.cells); // Reload grid
       self.score       = current_game.score;
@@ -76,31 +76,6 @@ GameManager.prototype.setup = function () {
     // Update the actuator
     self.actuate();
   })
-  // .fail(function(){
-  //   console.log("GET FAIL");)
-  // ;
-
-  // Reload the game from a previous game if present
-  // if (previousState) {
-  //   this.grid        = new Grid(previousState.grid.size,
-  //                               previousState.grid.cells); // Reload grid
-  //   this.score       = previousState.score;
-  //   this.over        = previousState.over;
-  //   this.won         = previousState.won;
-  //   this.keepPlaying = previousState.keepPlaying;
-  // } else {
-  //   this.grid        = new Grid(this.size);
-  //   this.score       = 0;
-  //   this.over        = false;
-  //   this.won         = false;
-  //   this.keepPlaying = false;
-  //
-  //   // Add the initial tiles
-  //   this.addStartTiles();
-  // }
-  //
-  // // Update the actuator
-  // this.actuate();
 };
 
 // Set up the initial tiles to start the game with

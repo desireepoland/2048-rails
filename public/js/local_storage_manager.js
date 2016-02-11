@@ -44,7 +44,7 @@ LocalStorageManager.prototype.saveID = function (id) {
 };
 
 LocalStorageManager.prototype.getID = function () {
-  return this.storage.getItem("game_id") || 0;
+  return this.storage.getItem("game_id");
 };
 
 // Best score getters/setters
@@ -64,7 +64,7 @@ LocalStorageManager.prototype.rankBestScores = function (score) {
 // Game state getters/setters and clearing
 LocalStorageManager.prototype.getGameState = function () {
   // var stateJSON; //= this.storage.getItem(this.gameStateKey);
-  return $.ajax("/games/:id", {async: false, type: "GET"});
+  return $.ajax("/games/" + this.getID(), {async: false, type: "GET"});
 
       // create here?
       // $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
@@ -80,7 +80,7 @@ LocalStorageManager.prototype.getGameState = function () {
 
 LocalStorageManager.prototype.setGameState = function (gameState) {
   this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
-
+  var self = this;
   // $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
   //   .done(function(data) {
   //     console.log("POST DONE!");
@@ -88,22 +88,33 @@ LocalStorageManager.prototype.setGameState = function (gameState) {
   //   .fail(function(){
   //     console.log("POST FAIL");
   //   });
-
-
-  $.ajax("/games/" + this.getID(), {
-    type: "PATCH",
-    game: {game_state: JSON.stringify(gameState)}
-  })
-    .done(function(data){
-      console.log("PATCH DONE!");
-      stateJSON = data.game_state;
+  if(this.getID() != null){
+    $.ajax("/games/" + this.getID(), {
+      type: "PATCH",
+      data: {game_state: JSON.stringify(gameState)}
     })
-    .fail(function(){
-      console.log("PATCH FAIL");
-    });
+      .done(function(data){
+        console.log("PATCH DONE!");
+        stateJSON = data.game_state;
+      })
+      .fail(function(){
+        console.log("PATCH FAIL");
+      });
+  } else {
+    $.post("/games", {game_state: JSON.stringify(gameState)})
+      .done(function(data) {
+        console.log("POST DONE!");
+        self.saveID(data.id);
+      })
+      .fail(function(){
+        console.log("POST FAIL");
+      });
+  }
+
 };
 
 
 LocalStorageManager.prototype.clearGameState = function () {
   this.storage.removeItem(this.gameStateKey);
+  this.storage.removeItem("game_id");
 };
