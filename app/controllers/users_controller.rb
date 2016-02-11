@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def leaderboard
-    @users = User.all
+    @games = Game.all.
   end
 end

@@ -1,8 +1,11 @@
 <div class="leaders">
-<%= @users.each do |i| %>
-  puts i
-<% end %>
-<script>
-document.write("<h1>" + localStorage.gameStateKey + "</h1>");
-</script>
+
 </div>
+</tr>
+<% @games.each do |game| %>
+<tr>
+  <td><%= game.score.max %></td>
+  <td>▷</td>
+  <td>✕</td>
+</tr>
+<% end %>
