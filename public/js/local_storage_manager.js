@@ -66,28 +66,13 @@ LocalStorageManager.prototype.getGameState = function () {
   // var stateJSON; //= this.storage.getItem(this.gameStateKey);
   return $.ajax("/games/" + this.getID(), {async: false, type: "GET"});
 
-      // create here?
-      // $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
-      //   .done(function(data) {
-      //     console.log("POST DONE!");
-      //   })
-      //   .fail(function(){
-      //     console.log("POST FAIL");
-      //   });
-
   // return stateJSON ? JSON.parse(stateJSON) : null;
 };
 
 LocalStorageManager.prototype.setGameState = function (gameState) {
   this.storage.setItem(this.gameStateKey, JSON.stringify(gameState));
   var self = this;
-  // $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
-  //   .done(function(data) {
-  //     console.log("POST DONE!");
-  //   })
-  //   .fail(function(){
-  //     console.log("POST FAIL");
-  //   });
+
   if(this.getID() != null){
     $.ajax("/games/" + this.getID(), {
       type: "PATCH",

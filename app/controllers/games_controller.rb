@@ -16,12 +16,6 @@ class GamesController < ApplicationController
 
   def new
     @game = @current_user.games.new(game_params)
-    # if @game.save
-    #   # pass an array of acceptable formats - [:json]
-    #   render json: @game, status: 200
-    # else
-    #   render json: {error: "Game could not be created."}, status: 422
-    # end
   end
 
   def create

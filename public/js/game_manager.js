@@ -8,24 +8,10 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
-  // this.inputManager.on("save", this.save.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
 }
-
-// // Save the game
-// GameManager.prototype.save = function (gameState) {
-//   console.log(JSON.stringify(gameState));
-//   $.post("/games", {game: {game_state: JSON.stringify(gameState)}})
-//     .done(function(data) {
-//       console.log("POST /save success!");
-//     })
-//     .fail(function(){
-//       console.log("POST FAIL");
-//     });
-//  ///post stuff here
-// };
 
 // Restart the game
 GameManager.prototype.restart = function () {
