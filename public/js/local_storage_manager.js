@@ -54,6 +54,11 @@ LocalStorageManager.prototype.getBestScore = function () {
 
 LocalStorageManager.prototype.setBestScore = function (score) {
   this.storage.setItem(this.bestScoreKey, score);
+  if(this.getBestScore() != null){
+    $.ajax("/games/" + this.getBestScore(), {
+      type: "PATCH",
+      data: {score: JSON.stringify(score)}
+    })
 };
 
 LocalStorageManager.prototype.rankBestScores = function (score) {
