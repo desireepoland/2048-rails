@@ -1,6 +1,21 @@
 <div class="games-index">
   <h1>My Games</h1>
-  <% @games.each do |game| %>
-  <%= game.updated_at %>
-  <% end %>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th>Last Played</th>
+        <th>Score</th>
+        <th>Resume</th>
+        <th>Delete</th>
+      </tr>
+      <% @games.each do |game| %>
+      <tr>
+        <td><%= game.updated_at %></td>
+        <td><%= game.score %></td>
+        <td>▷</td>
+        <td>✕</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
