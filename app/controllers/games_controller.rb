@@ -11,7 +11,8 @@ class GamesController < ApplicationController
     else
       @game = @current_user.games.first
     end
-    render json: @game
+    # render json: @game
+    render :json => @game.as_json, :status => :ok
   end
 
   def new
@@ -40,17 +41,17 @@ class GamesController < ApplicationController
   end
 
   def destroy
-      @game = Game.find(params[:id])
-      if @game.destroy
-        render json: {}, status: 200
-      else
-        render json: {error: "Game could not be deleted."}, status: 422
-      end
+    @game = Game.find(params[:id])
+    if @game.destroy
+      render json: {}, status: 200
+    else
+      render json: {error: "Game could not be deleted."}, status: 422
     end
+  end
 
-    private
+  private
 
-    def game_params
-      params.permit(:id, :game_state, :score)
-    end
+  def game_params
+    params.permit(:id, :game_state, :score)
+  end
 end
