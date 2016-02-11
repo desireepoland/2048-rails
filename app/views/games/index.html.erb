@@ -18,7 +18,7 @@
           <td><%= game.updated_at.localtime %></td>
           <td><%= game.score %></td>
           <td>▷</td>
-          <td>✕</td>
+          <td><%= link_to "✕",  { :controller=>"games", action: :destroy, :id => game.id}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
         <% end %>
       </tbody>

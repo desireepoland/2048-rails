@@ -41,12 +41,8 @@ class GamesController < ApplicationController
   end
 
   def destroy
-    @game = Game.find(params[:id])
-    if @game.destroy
-      render json: {}, status: 200
-    else
-      render json: {error: "Game could not be deleted."}, status: 422
-    end
+    Game.find(params[:id]).destroy
+    redirect_to games_path
   end
 
   private
