@@ -17,12 +17,12 @@ class GamesController < ApplicationController
 
   def new
       # binding.pry
-    @game = @current_user.games.new(game_params, score: game_params["game_state"]["score"])
+    @game = @current_user.games.new(game_params)
   end
 
   def create
 
-    @game = @current_user.games.new(game_params, score: JSON.parse(game_params["game_state"])["score"])
+    @game = @current_user.games.new(game_params)
 
     if @game.save
       # pass an array of acceptable formats - [:json]
