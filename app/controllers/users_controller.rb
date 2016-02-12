@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   def leaderboard
-    @games = Game.all.
+    @users = User.all
+    @games = Game.all
+    @top_games = Game.order(score: :desc).limit(20)
   end
+
 end
