@@ -6,13 +6,19 @@
 <table class="table table-striped">
   <tbody>
     <tr>
-      <th>User ID</th>
+      <th>Rank</th>
+      <th>User</th>
+      <th>Name</th>
       <th>Score</th>
     </tr>
-      <% @top_games.each do |top| %>
+    <% rank = 1 %>
+    <% @top_games.each do |top| %>
     <tr>
-      <td><%= top.user_id %></td>
+      <td><%= rank %></td>
+      <td><%= image_tag top.user.image_url %></td>
+      <td><%= top.user.name %></td>
       <td><%= top.score %></td>
+      <% rank += 1 %>
     </tr>
       <% end %>
     </tbody>
