@@ -35,7 +35,7 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(game_params[:id])
-    if @game.save
+    if @game.update_attributes(game_params)
       # pass an array of acceptable formats - [:json]
       render json: @game, status: 200
     else

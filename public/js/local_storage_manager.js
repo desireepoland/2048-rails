@@ -75,7 +75,7 @@ LocalStorageManager.prototype.setGameState = function (gameState) {
   if(this.getID() != null){
     $.ajax("/games/" + this.getID(), {
       type: "PATCH",
-      data: {game_state: JSON.stringify(gameState), score: self.score}
+      data: {game_state: JSON.stringify(gameState), score: gameState.score}
     })
       .done(function(data){
         console.log("PATCH DONE!");
@@ -85,7 +85,7 @@ LocalStorageManager.prototype.setGameState = function (gameState) {
         console.log("PATCH FAIL");
       });
   } else {
-    $.post("/games", {game_state: JSON.stringify(gameState), score: self.score})
+    $.post("/games", {game_state: JSON.stringify(gameState), score: gameState.score})
       .done(function(data) {
         console.log("POST DONE!");
         self.saveID(data.id);
