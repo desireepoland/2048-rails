@@ -1,11 +1,20 @@
-<div class="leaders">
 
+<div class="top-scores">
+  <h1>Current Top Scores</h1>
 </div>
-</tr>
-<% @games.each do |game| %>
-<tr>
-  <td><%= game.score.max %></td>
-  <td>▷</td>
-  <td>✕</td>
-</tr>
-<% end %>
+<div class="leaderboard">
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>User ID</th>
+      <th>Score</th>
+    </tr>
+      <% @top_games.each do |top| %>
+    <tr>
+      <td><%= top.user_id %></td>
+      <td><%= top.score %></td>
+    </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -42,6 +42,8 @@ class GamesController < ApplicationController
     else
       render json: {error: "Game could not be updated."}, status: 422
     end
+
+    @top_games = Game.order(score: :desc).limit(5)
   end
 
   def destroy
