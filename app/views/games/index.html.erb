@@ -17,7 +17,7 @@
           <td><%= game.created_at.localtime.strftime("%b. %d, %Y at %l:%M %p") %></td>
           <td><%= game.updated_at.localtime.strftime("%b. %d, %Y at %l:%M %p") %></td>
           <td><%= game.score %></td>
-          <td>▷</td>
+          <td><%= link_to "▷", root_path, class: "resume-link", data: {id: game.id}%></td>
           <td><%= link_to "✕",  { :controller=>"games", action: :destroy, :id => game.id}, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
         <% end %>
@@ -25,3 +25,4 @@
     </table>
   <% end %>
 </div>
+<script src="js/local_storage_manager.js"></script>
