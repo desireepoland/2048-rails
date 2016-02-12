@@ -41,7 +41,7 @@ LocalStorageManager.prototype.localStorageSupported = function () {
 };
 
 LocalStorageManager.prototype.saveID = function (id) {
-  return this.storage.setItem("game_id", id);
+  return this.storage.setItem("game_id", id) || 0;
 };
 
 LocalStorageManager.prototype.getID = function () {
@@ -63,7 +63,11 @@ LocalStorageManager.prototype.rankBestScores = function (score) {
 // Game state getters/setters and clearing
 LocalStorageManager.prototype.getGameState = function () {
   // var stateJSON; //= this.storage.getItem(this.gameStateKey);
-  return $.ajax("/games/" + this.getID(), {async: false, type: "GET"});
+  if(this.getID() != null){
+    return $.ajax("/games/" + this.getID(), {async: false, type: "GET"});
+  } else {
+    return $.ajax("/games", {async: false, type: "GET"});
+  }
 
   // return stateJSON ? JSON.parse(stateJSON) : null;
 };

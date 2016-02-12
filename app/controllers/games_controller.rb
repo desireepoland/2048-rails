@@ -7,10 +7,12 @@ class GamesController < ApplicationController
   end
 
   def show
-    if params[:id]
-      @game = current_user.games.find_by(id: params[:id])
-    else
-      @game = current_user.games.first
+    if current_user
+      if params[:id]
+        @game = current_user.games.find_by(id: params[:id])
+      else
+        @game = current_user.games.first
+      end
     end
     # render json: @game
     render :json => @game.as_json, :status => :ok
