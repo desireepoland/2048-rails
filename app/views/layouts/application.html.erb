@@ -9,6 +9,7 @@
 <%= render "shared/nav" %>
 <body>
 <div class="container">
+  <%= render partial: "shared/flash_messages", flash: flash %>
   <%= yield %>
 </div>
 
