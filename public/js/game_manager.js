@@ -86,6 +86,12 @@ GameManager.prototype.actuate = function () {
   if (this.storageManager.getBestScore() < this.score) {
     this.storageManager.setBestScore(this.score);
   }
+  
+  // $.ajax("/users/"+id, {type: "GET"}).done(function(data){
+  //   if (data["user"]["best_score"] < this.score) {
+  //     $.post
+  //   }
+  // });
 
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
